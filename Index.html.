@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Moçambique Notícias 24</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f1f1;
+    color: #222;
+}
+
+header {
+    background: #d90000;
+    color: white;
+    padding: 18px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header p {
+    margin: 5px 0 0;
+}
+
+nav {
+    background: white;
+    display: flex;
+    overflow-x: auto;
+    padding: 10px;
+    gap: 8px;
+}
+
+nav button {
+    border: none;
+    padding: 9px 15px;
+    border-radius: 20px;
+    background: #eee;
+    white-space: nowrap;
+}
+
+nav button:hover {
+    background: #d90000;
+    color: white;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 15px;
+}
+
+.pesquisa {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.noticia {
+    background: white;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px #0002;
+}
+
+.noticia img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.conteudo {
+    padding: 15px;
+}
+
+.categoria {
+    background: #d90000;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.noticia h2 {
+    font-size: 20px;
+}
+
+.data {
+    color: #777;
+    font-size: 13px;
+}
+
+.botao {
+    background: #d90000;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🇲🇿 Moçambique Notícias 24</h1>
+    <p>Informação de Moçambique</p>
+</header>
+
+<nav>
+    <button onclick="mostrar('Todas')">Todas</button>
+    <button onclick="mostrar('Nacional')">Nacional</button>
+    <button onclick="mostrar('Política')">Política</button>
+    <button onclick="mostrar('Economia')">Economia</button>
+    <button onclick="mostrar('Educação')">Educação</button>
+    <button onclick="mostrar('Desporto')">Desporto</button>
+</nav>
+
+<div class="container">
+
+    <input
+        class="pesquisa"
+        type="text"
+        id="pesquisa"
+        placeholder="Pesquisar notícia..."
+        onkeyup="pesquisar()"
+    >
+
+    <div id="listaNoticias"></div>
+
+</div>
+
+<footer>
+    <p>© 2026 Moçambique Notícias 24</p>
+    <p>Todos os direitos reservados.</p>
+</footer>
+
+<script>
+
+const noticias = [
+
+{
+titulo: "Bem-vindo ao Moçambique Notícias 24",
+categoria: "Nacional",
+data: "21/09/2026",
+imagem: "https://images.unsplash.com/photo-1523731407965-2430cd12f5e4",
+texto: "Este é o seu novo espaço para acompanhar notícias e acontecimentos de Moçambique."
+},
+
+{
+titulo: "Educação em Moçambique",
+categoria: "Educação",
+data: "21/09/2026",
+imagem: "https://images.unsplash.com/photo-1509062522246-3755977927d7",
+texto: "Notícias, informações e acontecimentos relacionados com a educação em Moçambique."
+},
+
+{
+titulo: "Desporto nacional",
+categoria: "Desporto",
+data: "21/09/2026",
+imagem: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211",
+texto: "Acompanhe as principais notícias do desporto nacional."
+}
+
+];
+
+function mostrar(categoria) {
+
+    const lista = document.getElementById("listaNoticias");
+
+    lista.innerHTML = "";
+
+    noticias.forEach(function(noticia) {
+
+        if (categoria === "Todas" || noticia.categoria === categoria) {
+
+            lista.innerHTML += `
+
+            <div class="noticia">
+
+                <img src="${noticia.imagem}">
+
+                <div class="conteudo">
+
+                    <span class="categoria">
+                        ${noticia.categoria}
+                    </span>
+
+                    <h2>${noticia.titulo}</h2>
+
+                    <p class="data">
+                        ${noticia.data}
+                    </p>
+
+                    <p>
+                        ${noticia.texto}
+                    </p>
+
+                    <button
+                        class="botao"
+                        onclick="ler('${noticia.titulo}')">
+                        Ler notícia
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+        }
+
+    });
+
+}
+
+function pesquisar() {
+
+    const palavra =
+        document.getElementById("pesquisa").value.toLowerCase();
+
+    const lista =
+        document.getElementById("listaNoticias");
+
+    lista.innerHTML = "";
+
+    noticias.forEach(function(noticia) {
+
+        if (
+            noticia.titulo.toLowerCase().includes(palavra) ||
+            noticia.texto.toLowerCase().includes(palavra)
+        ) {
+
+            lista.innerHTML += `
+
+            <div class="noticia">
+
+                <img src="${noticia.imagem}">
+
+                <div class="conteudo">
+
+                    <span class="categoria">
+                        ${noticia.categoria}
+                    </span>
+
+                    <h2>${noticia.titulo}</h2>
+
+                    <p class="data">
+                        ${noticia.data}
+                    </p>
+
+                    <p>${noticia.texto}</p>
+
+                    <button
+                        class="botao"
+                        onclick="ler('${noticia.titulo}')">
+                        Ler notícia
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+        }
+
+    });
+
+}
+
+function ler(titulo) {
+    alert("Você selecionou: " + titulo);
+}
+
+mostrar("Todas");
+
+</script>
+
+</body>
+</html>
